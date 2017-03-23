@@ -6,25 +6,27 @@
 %  It will be read in by texi-to-latex.pl.  %
 %===========================================%
 
-\documentclass[11pt,oneside]{book}
+\documentclass[10pt,oneside]{book}
 
 % New line height: 1.05 * 1.2 = 1.26
 \renewcommand{\baselinestretch}{1.05}
 
 % Font settings
-\usepackage[no-math]{fontspec} %-----------------------%  This exact order
-\defaultfontfeatures{%                                 %  of declarations
-  Scale=MatchLowercase, % needed here ...              %  is important for
-}                                                      %  single quotes not
-\setmonofont{Inconsolata LGC}                          %  to turn out curly
-                                                       %  ("typographic")
-\defaultfontfeatures{%                                 %  in verbatim blocks
-  Scale=MatchLowercase, % ... and here again           %  of Scheme code.
-  Mapping=tex-text,                                    %  Now the quote is
-  SmallCapsFeatures={LetterSpace=2.5,WordSpace=1.05},  %  upright and safely
-}                                                      %  copy-pasteable to
-\setmainfont{Linux Libertine O}                        %  the REPL without
-\setsansfont{Linux Biolinum O} %-----------------------%  giving errors.
+\usepackage{amsmath}
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+\setmainfont[Ligatures=TeX,
+             BoldFont=AGaramond Pro Semibold,
+             BoldItalicFont=AGaramond Pro Semibold Italic
+            ]{Adobe Garamond Pro}
+\setsansfont[Ligatures=TeX, Scale=MatchUppercase,
+             BoldFont={* Medium},
+             BoldItalicFont={* Medium Italic},
+            ]{Roboto}
+\setmonofont[Scale=MatchLowercase]{mononoki}
+\setmathfont{XITS Math} % Type for math symbols
+\setmathrm{XITS} % Math roman type
 
 \usepackage{polyglossia}
 \setdefaultlanguage[variant=american]{english}
@@ -41,21 +43,6 @@
 \usepackage{graphicx}
 
 \usepackage[usenames,dvipsnames,x11names]{xcolor}
-\usepackage{amsmath}
-
-% To use Libertine letters and numbers,
-% but tx-style operators in math environment:
-\usepackage[libertine]{newtxmath}
-
-% Workaround to fix mismatched left and right math delimiters. Taken from:
-% http://tex.stackexchange.com/questions/63410/parentheses-differ-xelatex-fontspec-newtxmath-libertine
-\DeclareSymbolFont{parenthesis}{T1}{fxl}{m}{n}
-\DeclareMathDelimiter{(}{\mathopen}{parenthesis}{"28}{largesymbols}{"00}
-\DeclareMathDelimiter{)}{\mathclose}{parenthesis}{"29}{largesymbols}{"01}
-\DeclareMathDelimiter{[}{\mathopen}{parenthesis}{"5B}{largesymbols}{"02}
-\DeclareMathDelimiter{]}{\mathclose}{parenthesis}{"5D}{largesymbols}{"03}
-\DeclareMathDelimiter{\lbrace}{\mathopen}{parenthesis}{"7B}{largesymbols}{"08}
-\DeclareMathDelimiter{\rbrace}{\mathclose}{parenthesis}{"7D}{largesymbols}{"09}
 
 \usepackage{fancyvrb}
 \usepackage{imakeidx}
@@ -86,6 +73,10 @@
   linkcolor=LinkRed,
   urlcolor=LinkRed,
 }
+
+% Spend a bit more time to get better word spacing.
+% See http://tex.stackexchange.com/a/52855/92465
+\emergencystretch=1em
 
 % Document colors
 \definecolor{SchemeLight}   {HTML} {686868}
@@ -183,8 +174,8 @@
     commentstyle=\color{SchemeLight}\itshape,
 }
 
-\newcommand{\acronym}[1]{\textsc{\fontspec[Numbers={OldStyle}]{Linux Libertine O}\MakeLowercase{#1}}}
-\newcommand{\uppersc}[1]{{\fontspec[Letters=UppercaseSmallCaps]{Linux Libertine O}#1}}
+\newcommand{\acronym}[1]{\textsc{\fontspec[Numbers={OldStyle}]{Adobe Garamond Pro}\MakeLowercase{#1}}}
+\newcommand{\uppersc}[1]{{\fontspec[Letters=UppercaseSmallCaps]{Adobe Garamond Pro}#1}}
 \newcommand{\newterm}[1]{\index{#1}\emph{#1}}
 \newcommand{\strong}[1]{\textbf{#1}}
 \newcommand{\var}[1]{\textsl{#1}}

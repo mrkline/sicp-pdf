@@ -6,7 +6,7 @@ FIG := $(patsubst %.svg,%.pdf,$(wildcard fig/*/*.svg))
 all: sicp.pdf
 
 sicp.pdf: sicp.tex exercises.tex figures.tex coverpage.pdf ${FIG}
-	latexmk -pdflatex="xelatex %O %S" -pdf -dvi- -ps- $<; \
+	latexmk -pdflatex="lualatex %O %S" -pdf -dvi- -ps- $<; \
 	mv sicp.pdf ..
 
 sicp.tex: sicp.texi preamble.tex postamble.tex texi-to-latex.pl
